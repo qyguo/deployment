@@ -127,6 +127,25 @@ private:
       obj->SetLineColor(2);
 
     obj->SetLineWidth(2);
+
+    if (TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_chamber_1D$").MatchB(o.name) ||
+        TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_pt_1D$").MatchB(o.name) ||
+        TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_eta_1D$").MatchB(o.name) ||
+        TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_phi_1D$").MatchB(o.name) ||
+        TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_chamber_(p|n)\\d{1,2}_1D$").MatchB(o.name) || 
+        TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_pt_(p|n)\\d{1,2}_1D$").MatchB(o.name) ||
+        TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_eta_(p|n)\\d{1,2}_1D$").MatchB(o.name) ||
+        TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_phi_(p|n)\\d{1,2}_1D$").MatchB(o.name) ) {
+      obj->SetMinimum(0.);
+      obj->GetXaxis()->SetTitleSize(0.05);
+      obj->GetYaxis()->SetTitleSize(0.05);
+      obj->GetXaxis()->SetLabelSize(0.03);
+      obj->GetYaxis()->SetLabelSize(0.03);
+      obj->GetXaxis()->SetTitleOffset(1.1);
+      obj->GetYaxis()->SetTitleOffset(1.1);
+      obj->SetStats(false);
+      gPad->SetGrid(1,1);
+    }
   }
 
   void preDrawTH2F(TCanvas *, const VisDQMObject &o)
@@ -138,6 +157,30 @@ private:
 
     gPad->SetGridx();
     gPad->SetGridy();
+
+    if (TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_Ch_region_GE1$").MatchB(o.name) ) { 
+        //TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_Ch_region$").MatchB(o.name) ||
+        //TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_Ch_eta$").MatchB(o.name) ||
+        //TPRegexp("^GEM/Run summary/Segment_TnP/Task/GEM_chamberEff_Ch_phi$").MatchB(o.name) {
+        obj->GetXaxis()->SetTitleSize(0.04);
+        obj->GetYaxis()->SetTitleSize(0.04);
+        obj->GetZaxis()->SetTitleSize(0.04);
+        obj->GetYaxis()->SetTitleOffset(0.9);
+        obj->GetXaxis()->SetLabelSize(0.03);
+        obj->GetYaxis()->SetLabelSize(0.03);
+        obj->GetZaxis()->SetLabelSize(0.03);
+        obj->LabelsDeflate("X");
+        obj->LabelsDeflate("Y");
+        obj->SetLabelFont (22,"X");
+        obj->SetLabelFont (22,"Y");
+        obj->SetLabelSize(0.02,"X");
+        obj->SetLabelSize(0.02,"Y");
+        gStyle->SetPaintTextFormat("4.3f");
+        obj->SetStats(false);
+        obj->GetZaxis()->SetRangeUser(0,1);
+        obj->SetOption("colz,text");
+
+    }
   }
 
   void preDrawTH2S(TCanvas *, const VisDQMObject &o)
